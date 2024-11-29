@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package user;
+
+option go_package="./;user";
+
+// 登录或者注册
+service User {
+  // 注册
+  rpc SignUp (SignUpRequest) returns (SignUpResponse) {}
+
+  // 登录
+  rpc SignIn (SignInRequest) returns (SignInResponse) {}
+
+  // 获取单个用户的模块信息
+  rpc GetUserInfoByUserId (GetUserInfoByUserIdRequest) returns (GetUserInfoByUserIdResponse){}
+
+  // 校验token是否有效
+  rpc Verify (VerifyRequest) returns (VerifyResponse){}
+
+  // 退出登录
+  rpc LoginOut (LoginOutRequest) returns (LoginOutResponse){}
+}
+
+message  SignUpRequest {
+  string name = 1;
+  string password = 2;
+  int64 pid = 3;
+}
+
+message  SignUpResponse {
+  int64 id = 1;
+  string message = 2;
+}
+
+message  SignInRequest {
+  string name = 1;
+  string password = 2;
+}
+
+
+message  SignInResponse {
+  int64 id = 1;
+  string userName = 2;
+  string token = 3;
+  string message = 4;
+}
+
+message GetUserInfoByUserIdRequest {
+  int64 id = 1;
+}
+
+message GetUserInfoByUserIdResponse {
+  string modulesInfo = 1;
+}
+
+message VerifyRequest {
+  string token = 1;
+}
+
+message  VerifyResponse {
+  int64 status = 1;
+}
+
+message LoginOutRequest {
+  string token = 1;
+}
+
+message LoginOutResponse {
+  int64 status = 1;
+}
